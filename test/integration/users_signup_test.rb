@@ -11,7 +11,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                 password_conformation: "bar"  }
     end
     assert_template "users/new"
-    # TODO Add a test to verify the presence of error messages
+    assert_select 'div#error_explanation'
+    assert_select 'div.alert-danger'
   end
 
   test "valid signup form submission" do
@@ -22,8 +23,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post_via_redirect users_path, user: {  name: name, email: email, password: password, password_confirmation: password  }
     end
-    assert_template "users/show"
-    # TODO Add a test to verify the presence of error messages
+    assert_template "users/show"        # Redirect to user#show page with new user info
+    assert_select 'div.alert-success'   # A success alert is shown in view
+    assert_not flash.nil?               # Flash hash isn't nil
   end
 
 end
