@@ -8,6 +8,7 @@ $light-gray: #777;
 $v-light-gray: #eaeaea;
 $med-gray: #555;
 $dark-gray: #222;
+$primary-blue: #3071A9;
 
 
 /* Mixins */
@@ -91,7 +92,7 @@ p {
   padding-top: 9px;
   font-weight: bold; 
   &:hover {
-  color: cornflowerblue;
+  color: $primary-blue;
   text-decoration: none;
 }
   
