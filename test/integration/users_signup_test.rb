@@ -26,6 +26,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_template "users/show"        # Redirect to user#show page with new user info
     assert_select 'div.alert-success'   # A success alert is shown in view
     assert_not flash.nil?               # Flash hash isn't nil
+    assert is_logged_in?
   end
 
 end
