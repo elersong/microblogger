@@ -7,7 +7,7 @@ module SessionsHelper
 
   # Remembers a user in a persistent session.
   def remember(user)
-    user.remember # create and assign token to user
+    user.remember # create and assign token to user, digest and save token digest to db
     cookies.permanent.signed[:user_id] = user.id                # permanent() and signed() are just modifiers of the cookies obj
     cookies.permanent[:remember_token] = user.remember_token
   end
@@ -37,7 +37,7 @@ module SessionsHelper
   
   # Forgets a persistent session (using :remember_token/digest to identify a client as no longer active)
   def forget(user)
-    user.forget
+    user.forget     # clear token digest from db
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
   end
