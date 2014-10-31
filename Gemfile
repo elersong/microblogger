@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.3'
 
+gem 'pry'
 
 gem 'rails',                    '4.2.0.beta2'
 gem 'bootstrap-sass',           '3.2.0.0'

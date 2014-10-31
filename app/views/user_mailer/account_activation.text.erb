@@ -1,0 +1,5 @@
+Hello <%= @user.name %>,
+
+Welcome to Microblogger! Please click the link below to confirm your email address and activate your account.
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

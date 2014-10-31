@@ -1,0 +1,7 @@
+<h1>Microblogger</h1>
+
+<p>Hello <%= @user.name %>,</p>
+
+<p>Welcome to Microblogger! Please click the link below to confirm your email address and activate your account.</p>
+
+<%= link_to "Activate Your Account", edit_account_activation_url(@user.activation_token, email: @user.email) %>

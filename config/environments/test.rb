@@ -40,4 +40,8 @@ Rails.application.configure do
   Rails.application.configure do
     config.active_support.test_order = :sorted
   end
+  
+  # configurations for mailer test as set out in Hartl Listing 10.17
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'example.com' }
 end
