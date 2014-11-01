@@ -1,8 +1,8 @@
 class AccountActivationsController < ApplicationController
   
   def edit
-    user = User.find_by_email(email)
-    if user && !user.activated? && user.authenticated?(:activation, token)
+    user = User.find_by(email: params[:email])
+    if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate
       flash[:success] = "Account activated!"
       login user
@@ -21,8 +21,8 @@ class AccountActivationsController < ApplicationController
   end
   
   # Rails 4 strong parameters
-  def token
-    params.require(:token)
-  end
+  #def token
+  #  params.require(:token)
+  #end
   
 end
