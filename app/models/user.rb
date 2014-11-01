@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  # attributes on the model :name, :email, :password, :password_confirmation
-  attr_accessor :remember_token, :activation_token, :reset_token
+  # attributes on the model (saved to db) :name, :email, :password, :password_confirmation
+  attr_accessor :remember_token, :activation_token, :reset_token # these are not saved to db, but assoc with user obj
   
   validates :name,  presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 250 }
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   
   ### Model Methods ###
   
-  # return the hash digest of a given string
+  # return the hash digest of a given string (use this for passwords and tokens before db saving)
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
   
-  # Remembers a user in the database for use in persistent sessions.
+  # Remembers a user in the database for use in persistent sessions through setting a remember token/digest pair
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
