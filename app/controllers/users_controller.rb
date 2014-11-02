@@ -54,15 +54,6 @@ class UsersController < ApplicationController
     
     ## == Before Filters == ##
     
-    # confirms that there is a user logged in right now
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
-    
     # confirms the correct user is logged in
     def correct_user
       @user = User.find(params[:id])
