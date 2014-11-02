@@ -14,15 +14,5 @@ class AccountActivationsController < ApplicationController
   end
   
   private
-
-  # Rails 4 strong parameters
-  def email
-    params.require(:email)
-  end
-  
-  # Rails 4 strong parameters
-  #def token
-  #  params.require(:token)
-  #end
   
 end

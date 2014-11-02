@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
+  
   # attributes on the model (saved to db) :name, :email, :password, :password_confirmation
   attr_accessor :remember_token, :activation_token, :reset_token # these are not saved to db, but assoc with user obj
   
