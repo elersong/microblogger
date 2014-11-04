@@ -102,6 +102,11 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
   
+  # Returns a user's status feed.
+  def feed
+    Micropost.from_users_followed_by(self)
+  end
+  
   
   
   private
