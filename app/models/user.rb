@@ -1,5 +1,13 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :passive_relationships, class_name: "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower
   
   # attributes on the model (saved to db) :name, :email, :password, :password_confirmation
   attr_accessor :remember_token, :activation_token, :reset_token # these are not saved to db, but assoc with user obj
@@ -78,6 +86,23 @@ class User < ActiveRecord::Base
   def feed
     Micropost.where("user_id = ?", self.id)
   end
+  
+  # Follows another user
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+  
+  # Unfollows another user
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+  
+  # Returns true if the current user is following the other_user
+  def following?(other_user)
+    following.include?(other_user)
+  end
+  
+  
   
   private
   
